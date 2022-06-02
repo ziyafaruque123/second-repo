@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="b91df6c5-f761-45b9-8855-f67bff2c3694" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="aamleloaamFlow" doc:id="ea70ea94-bd7e-4c0c-9fd0-0ee70c069a4f" >
+		<http:listener doc:name="Listener" doc:id="b144eb8a-2e1f-4ec5-9fd7-e37f48e58b4c" config-ref="HTTP_Listener_config" path="/test"/>
+		<logger level="INFO" doc:name="Logger" doc:id="10262875-da02-47c9-be12-8308abd59349" message="start flow"/>
+		<ee:transform doc:name="Transform Message" doc:id="9cee94f7-7e4e-4bdb-8d58-33c399bade45" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"buy fresh mangoes from us at very nominal cost@20/kg"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="f7a10b99-3116-49d0-9c86-4327b510a1ed" message="end flow"/>
+	</flow>
+</mule>
